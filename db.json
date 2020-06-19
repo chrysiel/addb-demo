@@ -1,0 +1,28 @@
+{
+  "products": [
+    {
+      "id": 5928101,
+      "image": "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/macbook-air-gold-select-201810?wid=892&hei=820&&qlt=80&.v=1541713859040",
+      "title": "MacBook Air 13 pouces",
+      "description": "Processeur Core i3 bicœur à 1,1 GHz (Turbo Boost jusqu’à 3,2 GHz) 256 Go de stockage Touch ID",
+      "added": false,
+      "count": 0
+    },
+    {
+      "id": 8419988,
+      "image": "https://media.ldlc.com/r1600/ld/products/00/05/27/25/LD0005272599_2_0005272619.jpg",
+      "title": "Apple iPad Air(2019) Wi - Fi 256 Go Argent",
+      "description": "Non, la puissance n'est plus le privilège des pros ! Désormais, avec l'iPad Air, les technologies les plus avancées sont accessibles au plus grand ...",
+      "added": false,
+      "count": 0
+    },
+    {
+      "id": 4582797,
+      "image": "https://dyw7ncnq1en5l.cloudfront.net/optim/produits/38/50215/acer-chromebook-514_9bbce87714a445d8__908_512__overflow.jpg",
+      "title": "Acer Chromebook 514",
+      "description": "Cela faisait longtemps qu’un Chromebook ne s’était pas frayé un chemin vers le labo des Numériques. C’est chose faite aujourd’hui, puisque nous ...",
+      "added": true,
+      "count": 2
+    }
+  ]
+}
