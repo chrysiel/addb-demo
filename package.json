@@ -1,19 +1,51 @@
 {
   "name": "addb-demo",
   "version": "1.0.0",
+  "private": true,
   "description": "My prime Nuxt.js project",
   "author": "Chrysiel",
-  "private": true,
   "scripts": {
-    "dev": "nuxt",
     "build": "nuxt build",
-    "start": "nuxt start",
-    "generate": "nuxt generate",
+    "test:unit": "vue-cli-service test:unit",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
-    "heroku-postbuild": "npm run build"
+    "dev": "nuxt",
+    "generate": "nuxt generate",
+    "heroku-postbuild": "npm run build",
+    "start": "nuxt start",
+    "test": "jest"
+  },
+  "jest": {
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "**/*.{js,vue}",
+      "!**/node_modules/**"
+    ],
+    "coverageReporters": [
+      "html",
+      "text-summary"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "vue"
+    ],
+    "transform": {
+      ".*\\.(vue)$": "vue-jest",
+      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+    },
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    }
+  },
+  "ava": {
+    "files": [
+      "test/**/*"
+    ]
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
+    "@types/webpack": "^4.41.17",
+    "@vue/cli-service": "^4.4.4",
     "lodash": "^4.17.15",
     "node-sass": "^4.14.1",
     "nuxt": "^2.0.0",
@@ -26,7 +58,12 @@
     "@nuxt/typescript-build": "^1.0.3",
     "@nuxtjs/eslint-config": "^2.0.0",
     "@nuxtjs/eslint-module": "^1.0.0",
+    "@types/chalk": "^2.2.0",
+    "@vue/cli-plugin-unit-jest": "^4.4.4",
+    "@vue/test-utils": "^1.0.3",
+    "ava": "^3.9.0",
     "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.0.1",
     "babel-loader": "^8.1.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.11.0",
@@ -34,6 +71,9 @@
     "eslint-plugin-nuxt": ">=0.4.2",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-vue": "^6.2.2",
-    "prettier": "^1.19.1"
+    "jest": "^26.0.1",
+    "jsdom": "^16.2.2",
+    "prettier": "^1.19.1",
+    "vue-jest": "^3.0.5"
   }
 }

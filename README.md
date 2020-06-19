@@ -4,7 +4,7 @@
 
 ## Build Setup
 
-``` bash
+```bash
 # install dependencies
 $ npm install
 
@@ -16,6 +16,9 @@ $ json-server --watch db.json
 
 # serve with hot reload at localhost
 $ npm run dev
+
+# Units and e2e tests with jest
+$ npm test
 
 # build for production and launch server
 $ npm run build

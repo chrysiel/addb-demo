@@ -4,7 +4,9 @@
       My Shop
     </nuxt-link>
     <nav>
-      <nuxt-link to="/cart"> Cart ({{ productsInCartTotalLength }}) </nuxt-link>
+      <nuxt-link to="/cart">
+        Cart <span class="cart-counter">({{ productsInCartTotalLength }})</span>
+      </nuxt-link>
       &nbsp;|
       <nuxt-link to="/product/search">
         Search products
