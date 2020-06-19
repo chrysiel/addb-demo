@@ -12,9 +12,10 @@
     "generate": "nuxt generate",
     "heroku-postbuild": "npm run build",
     "start": "nuxt start",
-    "test": "jest"
+    "test": "jest --runInBand"
   },
   "jest": {
+    "preset": "jest-puppeteer",
     "collectCoverage": true,
     "collectCoverageFrom": [
       "**/*.{js,vue}",
@@ -37,18 +38,15 @@
       "^@/(.*)$": "<rootDir>/src/$1"
     }
   },
-  "ava": {
-    "files": [
-      "test/**/*"
-    ]
-  },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
     "@types/webpack": "^4.41.17",
     "@vue/cli-service": "^4.4.4",
+    "jest-puppeteer": "^4.4.0",
     "lodash": "^4.17.15",
     "node-sass": "^4.14.1",
     "nuxt": "^2.0.0",
+    "puppeteer": "^4.0.0",
     "sass-loader": "^8.0.2",
     "velocity-animate": "^1.5.2"
   },
@@ -61,7 +59,6 @@
     "@types/chalk": "^2.2.0",
     "@vue/cli-plugin-unit-jest": "^4.4.4",
     "@vue/test-utils": "^1.0.3",
-    "ava": "^3.9.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.0.1",
     "babel-loader": "^8.1.0",
