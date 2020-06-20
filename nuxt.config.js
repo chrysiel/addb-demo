@@ -1,4 +1,4 @@
-import ProductService from './services/ProductService.js'
+import ProductService from './services/ProductService.ts'
 
 export default {
   mode: 'universal',
@@ -65,7 +65,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [],
+  plugins: ['~/plugins/axios-accessor.ts'],
   /*
    ** Nuxt.js dev-modules
    */
@@ -118,9 +118,16 @@ export default {
     }
   },
 
+  typescript: {
+    typeCheck: {
+      eslint: true,
+      vue: true
+    }
+  },
+
   generate: {
     routes: () => {
-      return ProductService.getProducts().then((response) => {
+      return ProductService.getAllProducts().then((response) => {
         return response.data.map((product) => {
           return '/product/' + product.id
         })

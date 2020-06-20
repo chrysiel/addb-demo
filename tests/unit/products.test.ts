@@ -7,8 +7,8 @@ describe('store/product', () => {
   // focus on the code from here...
   const localVue = createLocalVue()
   localVue.use(Vuex)
-  let NuxtStore
-  let store
+  let NuxtStore: { createStore: () => any }
+  let store: { getters: { [x: string]: any } }
 
   beforeAll(async () => {
     // note the store will mutate across tests
@@ -23,39 +23,39 @@ describe('store/product', () => {
   // ----------------------------------------------------
 
   describe('disney', () => {
-    let disney
+    let disney: string | any[]
 
     beforeEach(() => {
       disney = store.getters['movies/disney']
     })
 
-    test('getter is a function', () => {
+    it('getter is a function', () => {
       expect(_.isArray(disney)).toBe(true)
     })
 
-    test('should be 6 movies total', () => {
+    it('should be 6 movies total', () => {
       expect(disney.length).toBe(6)
     })
   })
 
   describe('byStudio', () => {
-    let byStudio
+    let byStudio: (arg0: string) => { (): any; new (): any; length: any }
 
     beforeEach(() => {
       byStudio = store.getters['movies/byStudio']
     })
 
-    test('is a function', () => {
+    it('is a function', () => {
       expect(_.isFunction(byStudio)).toBe(true)
     })
 
-    test('matches what the disney getter returns', () => {
+    it('matches what the disney getter returns', () => {
       const movies = store.getters['movies/byStudio']('Disney')
       const disney = store.getters['movies/disney']
       expect(movies).toEqual(disney)
     })
 
-    test('shows all other studios with one entry each', () => {
+    it('shows all other studios with one entry each', () => {
       expect(byStudio('sony').length).toBe(1)
       expect(byStudio('warner bros.').length).toBe(1)
       expect(byStudio('universal').length).toBe(1)

@@ -70,6 +70,10 @@ export default {
         product: this.product,
         action: 'removed'
       })
+
+      this.$router.push({
+        path: '/'
+      })
     }
   }
 }

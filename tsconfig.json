@@ -25,6 +25,8 @@
     "typeRoots": ["./types/vue-shim.d.ts"],
     "types": [
       "@types/node",
+      "@types/lodash",
+      "@types/jest",
       "@nuxt/types",
       "@nuxtjs/axios"
     ]

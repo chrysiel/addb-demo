@@ -53,21 +53,21 @@ HTTP.interceptors.response.use(
 export default {
   getAllProducts() {
     return HTTP.get('/products')
-  },
+  }
 
-  getProducts(perPage, page) {
+  /* getProducts(perPage: number, page: number) {
     return HTTP.get(`/products?_limit=${perPage}&_page=${page}`)
   },
 
-  getProduct(id) {
+  getProduct(id: any) {
     return HTTP.get(`/products/${id}`)
   },
 
-  postProduct(product) {
+  postProduct(product: any) {
     return HTTP.post('/products', product)
   },
 
-  putProduct(id, product, action) {
+  putProduct(id: any, product: any, action: string) {
     if (action === 'added') {
       product.count++
       if (!product.added) product.added = true
@@ -78,7 +78,7 @@ export default {
     return HTTP.put(`/products/${id}`, product)
   },
 
-  filterProducts(query) {
+  filterProducts(query: any) {
     return HTTP.get(`/products?q=${query}`)
-  }
+  } */
 }

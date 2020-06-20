@@ -5,19 +5,34 @@ module.exports = {
     node: true
   },
   parserOptions: {
-    parser: 'babel-eslint'
+    // parser: 'babel-eslint'
   },
   extends: [
-    '@nuxtjs',
-    'prettier',
-    'prettier/vue',
-    'plugin:prettier/recommended',
-    'plugin:nuxt/recommended'
+    'eslint:recommended',
+    '@nuxtjs/eslint-config-typescript',
+    // https://github.com/vuejs/eslint-plugin-vue#priority-a-essential-error-prevention
+    // préférez utiliser `plugin:vue/strongly-recommended` ou `plugin:vue/recommended` pour des règles strictes.
+    'plugin:vue/recommended',
+    'plugin:prettier/recommended'
   ],
+  // required to lint *.vue files
   plugins: [
-    'prettier'
+    'vue'
   ],
   // add your custom rules here
   rules: {
+    'semi': [2, 'never'],
+    'no-console': 'off',
+    'vue/max-attributes-per-line': 'off',
+    'prettier/prettier': ['error', {
+      'semi': false
+    }],
+    'vue/html-self-closing': ['error', {
+      'html': {
+        'void': 'always',
+        'normal': 'never',
+        'component': 'any'
+      }
+    }]
   }
 }

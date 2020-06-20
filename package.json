@@ -7,12 +7,13 @@
   "scripts": {
     "build": "nuxt build",
     "test:unit": "vue-cli-service test:unit",
-    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "dev": "nuxt",
     "generate": "nuxt generate",
     "heroku-postbuild": "npm run build",
     "start": "nuxt start",
-    "test": "jest --runInBand"
+    "test": "jest --runInBand",
+    "lint": "eslint --ext .ts,.js,.vue .",
+    "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore ."
   },
   "jest": {
     "preset": "jest-puppeteer",
@@ -27,26 +28,27 @@
     ],
     "moduleFileExtensions": [
       "js",
+      "ts",
       "json",
       "vue"
     ],
     "transform": {
-      ".*\\.(vue)$": "vue-jest",
-      "^.+\\.js$": "<rootDir>/node_modules/babel-jest"
+      "^.+\\.ts$": "ts-jest",
+      ".*\\.(vue)$": "vue-jest"
     },
     "moduleNameMapper": {
-      "^@/(.*)$": "<rootDir>/src/$1"
+      "^@/(.*)$": "<rootDir>/$1",
+      "^~/(.*)$": "<rootDir>/$1"
     }
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
-    "@types/webpack": "^4.41.17",
+    "@types/lodash": "^4.14.155",
     "@vue/cli-service": "^4.4.4",
-    "jest-puppeteer": "^4.4.0",
+    "babel-preset-env": "^1.7.0",
     "lodash": "^4.17.15",
     "node-sass": "^4.14.1",
     "nuxt": "^2.0.0",
-    "puppeteer": "^4.0.0",
     "sass-loader": "^8.0.2",
     "velocity-animate": "^1.5.2"
   },
@@ -55,8 +57,10 @@
     "@babel/preset-env": "^7.10.2",
     "@nuxt/typescript-build": "^1.0.3",
     "@nuxtjs/eslint-config": "^2.0.0",
+    "@nuxtjs/eslint-config-typescript": "^2.0.0",
     "@nuxtjs/eslint-module": "^1.0.0",
     "@types/chalk": "^2.2.0",
+    "@types/jest": "^26.0.0",
     "@vue/cli-plugin-unit-jest": "^4.4.4",
     "@vue/test-utils": "^1.0.3",
     "babel-eslint": "^10.1.0",
@@ -69,8 +73,11 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-vue": "^6.2.2",
     "jest": "^26.0.1",
+    "jest-puppeteer": "^4.4.0",
     "jsdom": "^16.2.2",
     "prettier": "^1.19.1",
+    "puppeteer": "^4.0.0",
+    "ts-jest": "^26.1.0",
     "vue-jest": "^3.0.5"
   }
 }

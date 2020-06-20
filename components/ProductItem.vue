@@ -14,11 +14,11 @@
       </p>
     </div>
     <div class="card-footer">
-      <small class="text-muted"
-        ><button type="button" @click="addToCart">
+      <small class="text-muted">
+        <button type="button" @click="addToCart">
           {{ 'add to cart' | uppercase }}
-        </button></small
-      >
+        </button>
+      </small>
     </div>
   </div>
 </template>
@@ -61,6 +61,10 @@ export default {
       await this.$store.commit('product/updateProduct', {
         product: this.product,
         action: 'added'
+      })
+
+      this.$router.push({
+        path: '/cart'
       })
     }
   }

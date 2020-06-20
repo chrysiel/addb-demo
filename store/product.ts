@@ -1,4 +1,8 @@
-export const strict = false
+/* eslint-disable */
+
+// import { GetterTree, ActionTree, MutationTree } from 'vuex'
+// import { RootState } from '~/store'
+import { $axios } from '~/utils/api'
 
 export const state = () => ({
   isLoading: true,
@@ -12,40 +16,53 @@ export const state = () => ({
   productsQueryLength: 0
 })
 
+// export type ProductModuleState = ReturnType<typeof state>
+
+/* export const getters: GetterTree<ProductModuleState, RootState> = {
+  evenMore: (state) => state.more + 5,
+  nameAndMore: (state, getters, rootState) => `${rootState.name}: ${state.more}`
+}
+
+export const actions: ActionTree<ProductModuleState, RootState> = {
+  printRootState({ rootState }) {
+    console.log('accessing rootState:', rootState.name)
+  }
+} */
+
 export const mutations = {
-  SET_PRODUCTS(state, products) {
+  SET_PRODUCTS(state: { products: any }, products: any) {
     state.products = products
   },
 
-  SET_PRODUCTS_TOTAL_LENGTH(state, total) {
+  SET_PRODUCTS_TOTAL_LENGTH(state: { productsTotalLength: any }, total: any) {
     state.productsTotalLength = total
   },
 
-  SET_PRODUCTS_IN_CART(state, products) {
+  SET_PRODUCTS_IN_CART(state: { productsInCart: any }, products: any) {
     state.productsInCart = products
   },
 
-  SET_PRODUCTS_IN_CART_TOTAL_LENGTH(state, total) {
+  SET_PRODUCTS_IN_CART_TOTAL_LENGTH(state: { productsInCartTotalLength: any }, total: any) {
     state.productsInCartTotalLength = total
   },
 
-  SET_PRODUCT(state, product) {
+  SET_PRODUCT(state: { product: any }, product: any) {
     state.product = product
   },
 
-  ADD_PRODUCT(state, product) {
+  ADD_PRODUCT(state: { products: any[] }, product: any) {
     state.products.push(product)
   },
 
-  SET_PRODUCTS_QUERY(state, products) {
+  SET_PRODUCTS_QUERY(state: { productsQuery: any }, products: any) {
     state.productsQuery = products
   },
 
-  SET_PRODUCTS_QUERY_TOTAL_LENGTH(state, total) {
+  SET_PRODUCTS_QUERY_TOTAL_LENGTH(state: { productsQueryLength: any }, total: any) {
     state.productsQueryLength = total
   },
 
-  async updateProduct({ commit, state }, { product, action }) {
+  async updateProduct({ commit, state }: any, { product, action }: any) {
     if (action === 'added') {
       product.count++
       if (!product.added) product.added = true
@@ -54,19 +71,9 @@ export const mutations = {
       if (product.count === 0) product.added = false
     }
 
-    await this.$axios
+    await $axios
       .$put(`/products/${product.id}`, product)
-      .then((response) => {
-        if (action === 'added') {
-          this.$router.push({
-            path: '/cart'
-          })
-        } else {
-          this.$router.push({
-            path: '/'
-          })
-        }
-
+      .then((response: any) => {
         /* const notification = {
           type: 'success',
           message: 'Your product has been ' + action + ' to cart'
@@ -75,7 +82,7 @@ export const mutations = {
           root: true
         }) */
       })
-      .catch((error) => {
+      .catch((error: any) => {
         /* const notification = {
           type: 'error',
           message: `There was an error updating product: ${error.message}`
@@ -89,10 +96,10 @@ export const mutations = {
 }
 
 export const actions = {
-  async fetchAllProducts({ commit, state, dispatch }) {
-    await this.$axios
+  async fetchAllProducts({ commit, state, dispatch }: any) {
+    await $axios
       .$get('/products')
-      .then((response) => {
+      .then((response: string | any[]) => {
         commit('SET_PRODUCTS', response)
         commit('SET_PRODUCTS_TOTAL_LENGTH', response.length)
 
@@ -102,7 +109,7 @@ export const actions = {
 
         state.isLoading = false
       })
-      .catch((error) => {
+      .catch((error: { message: any }) => {
         const notification = {
           type: 'error',
           message: `There was an error fetching products: ${error.message}`
@@ -113,13 +120,13 @@ export const actions = {
       })
   },
 
-  fetchProductsInCart({ commit, state }) {
-    const productsInCart = state.products.filter(function(product) {
+  fetchProductsInCart({ commit, state }: any) {
+    const productsInCart = state.products.filter(function(product: { added: any; count: number }) {
       return product.added && product.count > 0
     })
 
     const total = productsInCart.reduce(
-      (sum, current) => sum + current.count,
+      (sum: any, current: { count: any }) => sum + current.count,
       0
     )
 
@@ -131,10 +138,10 @@ export const actions = {
     return state.productsInCart
   },
 
-  async fetchProducts({ commit, state, dispatch, rootState }, { page }) {
-    await this.$axios
+  async fetchProducts({ commit, state, dispatch }: any, { page }: any) {
+    await $axios
       .$get(`/products?_limit=${state.perPage}&_page=${page}`)
-      .then((response) => {
+      .then((response: string | any[]) => {
         commit('SET_PRODUCTS', response)
         commit('SET_PRODUCTS_TOTAL_LENGTH', response.length)
 
@@ -144,7 +151,7 @@ export const actions = {
 
         state.isLoading = false
       })
-      .catch((error) => {
+      .catch((error: { message: any }) => {
         const notification = {
           type: 'error',
           message: `There was an error fetching products: ${error.message}`
@@ -155,7 +162,7 @@ export const actions = {
       })
   },
 
-  async fetchProduct({ commit, state, getters }, id) {
+  async fetchProduct({ commit, state, getters }: any, id: any) {
     if (id === state.product.id) {
       return state.product
     }
@@ -166,18 +173,18 @@ export const actions = {
       commit('SET_PRODUCT', product)
       return product
     } else {
-      await this.$axios.$get(`/products/${id}`).then((response) => {
+      await $axios.$get(`/products/${id}`).then((response: { data: any }) => {
         commit('SET_PRODUCT', response.data)
         return response.data
       })
     }
   },
 
-  async createProduct({ commit, state, dispatch }, product) {
+  async createProduct({ commit, state, dispatch }: any, product: any) {
     // Call mutations only inside current module not from another
-    await this.$axios
+    await $axios
       .$post('/products', product)
-      .then((response) => {
+      .then((response: any) => {
         const productsTotalLength = state.productsTotalLength + 1
         commit('ADD_PRODUCT', response)
         commit('SET_PRODUCTS_TOTAL_LENGTH', productsTotalLength)
@@ -192,7 +199,7 @@ export const actions = {
 
         return response
       })
-      .catch((error) => {
+      .catch((error: { message: any }) => {
         const notification = {
           type: 'error',
           message: `There was an error creating product: ${error.message}`
@@ -204,16 +211,16 @@ export const actions = {
       })
   },
 
-  async filterProducts({ commit, state, dispatch }, query) {
-    await this.$axios
+  async filterProducts({ commit, state, dispatch }: any, query: any) {
+    await $axios
       .$get(`/products?q=${query}`)
-      .then((response) => {
+      .then((response: string | any[]) => {
         commit('SET_PRODUCTS_QUERY', response)
         commit('SET_PRODUCTS_QUERY_TOTAL_LENGTH', response.length)
 
         state.isLoading = false
       })
-      .catch((error) => {
+      .catch((error: { message: any }) => {
         const notification = {
           type: 'error',
           message: `There was an error querying products: ${error.message}`
@@ -226,7 +233,7 @@ export const actions = {
 }
 
 export const getters = {
-  getProductById: (state) => (id) => {
-    return state.products.find((product) => product && product.id === id)
+  getProductById: (state: { products: any[] }) => (id: any) => {
+    return state.products.find((product: { id: any }) => product && product.id === id)
   }
 }

@@ -5,26 +5,26 @@ export const state = () => ({
 })
 
 export const mutations = {
-  PUSH(state, notification) {
+  PUSH(state: { notifications: any[] }, notification: any) {
     state.notifications.push({
       ...notification,
       id: newId++
     })
   },
 
-  REMOVE(state, notificationToRemove) {
+  REMOVE(state: { notifications: any[] }, notificationToRemove: { id: any }) {
     state.notifications = state.notifications.filter(
-      (notification) => notification.id !== notificationToRemove.id
+      (notification: { id: any }) => notification.id !== notificationToRemove.id
     )
   }
 }
 
 export const actions = {
-  add({ commit }, notification) {
+  add({ commit }: any, notification: any) {
     commit('PUSH', notification)
   },
 
-  remove({ commit }, notificationToRemove) {
+  remove({ commit }: any, notificationToRemove: any) {
     commit('REMOVE', notificationToRemove)
   }
 }

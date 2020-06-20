@@ -19,6 +19,8 @@
 import { mapState } from 'vuex'
 
 export default {
+  name: 'NavBar',
+
   computed: mapState({
     productsInCartTotalLength: (state) =>
       state.product.productsInCartTotalLength
