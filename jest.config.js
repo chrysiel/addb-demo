@@ -28,7 +28,8 @@ module.exports = {
 
   testEnvironment: 'node',
 
-  testRegex: '(/tests/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
+  testMatch: ['**/__tests__/**/*.[jt]s?(x)', '**/?(*.)+(spec|test).[jt]s?(x)'],
+  // testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.[jt]sx?$',
 
   transform: {
     '^.+\\.(ts|tsx)$': 'ts-jest',
