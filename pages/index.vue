@@ -88,6 +88,17 @@ export default {
     }
   },
 
+  notifications: {
+    showToaster: {
+      // You can have any name you want instead of 'showToaster'
+      title: 'Login Failed',
+      message: 'Failed to authenticate',
+      type: 'error', // You also can use 'VueNotifications.types.error' instead of 'error'
+      consoleMessage: 'let it be in console', // Our brand new field
+      timeout: 3000 // this.showToaster({title: 'my title', message: 'just an error', type: 'warn', timeout: 1000})
+    }
+  },
+
   head() {
     return {
       title: 'Products Listing'

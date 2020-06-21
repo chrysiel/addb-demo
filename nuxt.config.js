@@ -63,7 +63,10 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/axios-accessor.ts'],
+  plugins: [
+    '~/plugins/axios-accessor.ts'
+    /* '~/plugins/vue-notifications.ts' */
+  ],
   /*
    ** Nuxt.js dev-modules
    */
