@@ -1,5 +1,3 @@
-import ProductService from './services/ProductService.ts'
-
 export default {
   mode: 'universal',
   router: {
@@ -126,12 +124,12 @@ export default {
   },
 
   generate: {
-    routes: () => {
+    /* routes: () => {
       return ProductService.getAllProducts().then((response) => {
         return response.data.map((product) => {
           return '/product/' + product.id
         })
       })
-    }
+    } */
   }
 }

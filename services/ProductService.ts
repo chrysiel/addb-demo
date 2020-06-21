@@ -53,9 +53,9 @@ HTTP.interceptors.response.use(
 export default {
   getAllProducts() {
     return HTTP.get('/products')
-  }
+  },
 
-  /* getProducts(perPage: number, page: number) {
+  getProducts(perPage: number, page: number) {
     return HTTP.get(`/products?_limit=${perPage}&_page=${page}`)
   },
 
@@ -80,5 +80,5 @@ export default {
 
   filterProducts(query: any) {
     return HTTP.get(`/products?q=${query}`)
-  } */
+  }
 }

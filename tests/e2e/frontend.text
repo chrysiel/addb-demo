@@ -1,137 +1,44 @@
-const timeout = process.env.SLOWMO ? 30000 : 10000
-const devices = require('puppeteer/DeviceDescriptors')
+import { resolve } from 'path'
+import test from 'ava'
+import { Nuxt, Builder } from 'nuxt'
 
-beforeAll(async () => {
-  await page.goto(URL, {
-    waitUntil: 'domcontentloaded'
-  })
+// Nous gardons une référence à Nuxt pour fermer
+// le serveur à la fin du test
+let nuxt: null = null
+
+// Initialiser Nuxt.js et démarrer l'écoute sur localhost:4000
+test.before('Init Nuxt.js', async (t) => {
+  const rootDir = resolve(__dirname, '..')
+  let config = {}
+  try {
+    config = require(resolve(rootDir, 'nuxt.config.js'))
+  } catch (e) {}
+  config.rootDir = rootDir // dossier du projet
+  config.dev = false // build de production
+  config.mode = 'universal' // application isomorphique
+  nuxt = new Nuxt(config)
+  await new Builder(nuxt).build()
+  nuxt.listen(4000, 'localhost')
 })
 
-describe('Test header and title of the page', () => {
-  test(
-    'Title of the page',
-    async () => {
-      const title = await page.title()
-      expect(title).toBe('E2E Puppeteer Testing')
-    },
-    timeout
-  )
+// Exemple de test uniquement sur le HTML généré
+test('Route / exits and render HTML', async (t) => {
+  const context = {}
+  const { html } = await nuxt.renderRoute('/', context)
+  t.true(html.includes('<h1 class="red">Hello World !</h1>'))
+})
 
-  test(
-    'Header of the page',
-    async () => {
-      const h1Handle = await page.$('.learn_header')
-      const html = await page.evaluate(
-        (h1Handle: { innerHTML: any }) => h1Handle.innerHTML,
-        h1Handle
-      )
+// Exemple de test via la vérification du DOM
+test('Route / exits and render HTML with CSS applied', async (t) => {
+  const window = await nuxt.renderAndGetWindow('http://localhost:4000/')
+  const element = window.document.querySelector('.red')
+  t.not(element, null)
+  t.is(element.textContent, 'Hello World !')
+  t.is(element.className, 'red')
+  t.is(window.getComputedStyle(element).color, 'red')
+})
 
-      expect(html).toBe('What will you learn')
-    },
-    timeout
-  )
-
-  test(
-    'Submit form with valid data',
-    async () => {
-      await page.click('[href="/login"]')
-
-      await page.waitForSelector('form')
-      await page.type('#name', 'Rick')
-
-      await page.type('#password', 'szechuanSauce')
-      await page.type('#repeat_password', 'szechuanSauce')
-
-      await page.click('[type="submit"]')
-      await page.waitForSelector('.success')
-      const html = await page.$eval(
-        '.success',
-        (el: { innerHTML: any }) => el.innerHTML
-      )
-
-      expect(html).toBe('Successfully signed up!')
-    },
-    timeout
-  )
-
-  test(
-    'Take screenshot of home page',
-    async () => {
-      await page.setViewport({
-        width: 1920,
-        height: 1080
-      })
-      await page.screenshot({
-        path: './src/test/screenshots/home.jpg',
-        fullpage: true,
-        type: 'jpeg'
-      })
-    },
-    timeout
-  )
-
-  test(
-    'Emulate Mobile Device And take screenshot',
-    async () => {
-      await page.goto(`${URL}/login`, {
-        waitUntil: 'domcontentloaded'
-      })
-      const iPhonex = devices['iPhone X']
-      await page.emulate(iPhonex)
-      await page.setViewport({
-        width: 375,
-        height: 812,
-        isMobile: true
-      })
-      await page.screenshot({
-        path: './src/test/screenshots/home-mobile.jpg',
-        fullpage: true,
-        type: 'jpeg'
-      })
-    },
-    timeout
-  )
-
-  test(
-    'Intercept Request',
-    async () => {
-      await page.setRequestInterception(true)
-      page.on(
-        'request',
-        (interceptedRequest: {
-          url: () => string
-          abort: () => void
-          continue: () => void
-        }) => {
-          if (interceptedRequest.url().endsWith('.png')) {
-            interceptedRequest.abort()
-        } else {
-          interceptedRequest.continue()
-        }
-      })
-      await page.reload({
-        waitUntil: 'networkidle0'
-      })
-      // await jestPuppeteer.debug();
-      await page.setRequestInterception(false)
-    },
-    timeout
-  )
-
-  test(
-    'Target newly opened page',
-    async () => {
-      const newPagePromise = new Promise((resolve) =>
-        browser.once('targetcreated', (target: { page: () => unknown }) => resolve(target.page()))
-      )
-      await page.click('.repo_link')
-
-      const newPage = await newPagePromise
-      const title = await newPage.title()
-      await newPage.close()
-
-      expect(title).toBe('GitHub - Zovi343/E2E_Testing_with_Puppeteer_Final')
-    },
-    timeout
-  )
+// Arrêter le serveur Nuxt
+test.after('Closing server', (t) => {
+  nuxt.close()
 })

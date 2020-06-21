@@ -11,35 +11,14 @@
     "generate": "nuxt generate",
     "heroku-postbuild": "npm run build",
     "start": "nuxt start",
-    "test": "jest --runInBand",
+    "test": "jest",
     "lint": "eslint --ext .ts,.js,.vue .",
     "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore ."
   },
-  "jest": {
-    "preset": "jest-puppeteer",
-    "collectCoverage": true,
-    "collectCoverageFrom": [
-      "**/*.{js,vue}",
-      "!**/node_modules/**"
-    ],
-    "coverageReporters": [
-      "html",
-      "text-summary"
-    ],
-    "moduleFileExtensions": [
-      "js",
-      "ts",
-      "json",
-      "vue"
-    ],
-    "transform": {
-      "^.+\\.ts$": "ts-jest",
-      ".*\\.(vue)$": "vue-jest"
-    },
-    "moduleNameMapper": {
-      "^@/(.*)$": "<rootDir>/$1",
-      "^~/(.*)$": "<rootDir>/$1"
-    }
+  "ava": {
+    "files": [
+      "tests/e2e/*"
+    ]
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
@@ -59,10 +38,12 @@
     "@nuxtjs/eslint-config": "^2.0.0",
     "@nuxtjs/eslint-config-typescript": "^2.0.0",
     "@nuxtjs/eslint-module": "^1.0.0",
+    "@testing-library/jest-dom": "^5.10.1",
     "@types/chalk": "^2.2.0",
     "@types/jest": "^26.0.0",
     "@vue/cli-plugin-unit-jest": "^4.4.4",
     "@vue/test-utils": "^1.0.3",
+    "ava": "^3.9.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.0.1",
     "babel-loader": "^8.1.0",
@@ -73,10 +54,10 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-vue": "^6.2.2",
     "jest": "^26.0.1",
-    "jest-puppeteer": "^4.4.0",
+    "jest-serializer-vue": "^2.0.2",
     "jsdom": "^16.2.2",
+    "jsdom-global": "^3.0.2",
     "prettier": "^1.19.1",
-    "puppeteer": "^4.0.0",
     "ts-jest": "^26.1.0",
     "vue-jest": "^3.0.5"
   }

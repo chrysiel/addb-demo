@@ -42,7 +42,10 @@ export const mutations = {
     state.productsInCart = products
   },
 
-  SET_PRODUCTS_IN_CART_TOTAL_LENGTH(state: { productsInCartTotalLength: any }, total: any) {
+  SET_PRODUCTS_IN_CART_TOTAL_LENGTH(
+    state: { productsInCartTotalLength: any },
+    total: any
+  ) {
     state.productsInCartTotalLength = total
   },
 
@@ -58,7 +61,10 @@ export const mutations = {
     state.productsQuery = products
   },
 
-  SET_PRODUCTS_QUERY_TOTAL_LENGTH(state: { productsQueryLength: any }, total: any) {
+  SET_PRODUCTS_QUERY_TOTAL_LENGTH(
+    state: { productsQueryLength: any },
+    total: any
+  ) {
     state.productsQueryLength = total
   },
 
@@ -71,27 +77,28 @@ export const mutations = {
       if (product.count === 0) product.added = false
     }
 
-    await $axios
-      .$put(`/products/${product.id}`, product)
-      .then((response: any) => {
-        /* const notification = {
+    if ($axios)
+      await $axios
+        .$put(`/products/${product.id}`, product)
+        .then((response: any) => {
+          /* const notification = {
           type: 'success',
           message: 'Your product has been ' + action + ' to cart'
         }
         dispatch('notification/add', notification, {
           root: true
         }) */
-      })
-      .catch((error: any) => {
-        /* const notification = {
-          type: 'error',
+        })
+        .catch((error: any) => {
+          /* const notification = {
+          type: 'danger',
           message: `There was an error updating product: ${error.message}`
         }
         dispatch('notification/add', notification, {
           root: true
         }) */
-        throw error
-      })
+          throw error
+        })
   }
 }
 
@@ -111,31 +118,13 @@ export const actions = {
       })
       .catch((error: { message: any }) => {
         const notification = {
-          type: 'error',
+          type: 'danger',
           message: `There was an error fetching products: ${error.message}`
         }
         dispatch('notification/add', notification, {
           root: true
         })
       })
-  },
-
-  fetchProductsInCart({ commit, state }: any) {
-    const productsInCart = state.products.filter(function(product: { added: any; count: number }) {
-      return product.added && product.count > 0
-    })
-
-    const total = productsInCart.reduce(
-      (sum: any, current: { count: any }) => sum + current.count,
-      0
-    )
-
-    commit('SET_PRODUCTS_IN_CART', productsInCart)
-    commit('SET_PRODUCTS_IN_CART_TOTAL_LENGTH', total)
-
-    state.isLoading = false
-
-    return state.productsInCart
   },
 
   async fetchProducts({ commit, state, dispatch }: any, { page }: any) {
@@ -153,13 +142,22 @@ export const actions = {
       })
       .catch((error: { message: any }) => {
         const notification = {
-          type: 'error',
+          type: 'danger',
           message: `There was an error fetching products: ${error.message}`
         }
         dispatch('notification/add', notification, {
           root: true
         })
       })
+  },
+
+  fetchProductsInCart({ commit, state, getters }: any) {
+    let result = getters.getProductsInCart
+
+    commit('SET_PRODUCTS_IN_CART', result.products)
+    commit('SET_PRODUCTS_IN_CART_TOTAL_LENGTH', result.total)
+
+    state.isLoading = false
   },
 
   async fetchProduct({ commit, state, getters }: any, id: any) {
@@ -201,7 +199,7 @@ export const actions = {
       })
       .catch((error: { message: any }) => {
         const notification = {
-          type: 'error',
+          type: 'danger',
           message: `There was an error creating product: ${error.message}`
         }
         dispatch('notification/add', notification, {
@@ -222,7 +220,7 @@ export const actions = {
       })
       .catch((error: { message: any }) => {
         const notification = {
-          type: 'error',
+          type: 'danger',
           message: `There was an error querying products: ${error.message}`
         }
         dispatch('notification/add', notification, {
@@ -233,7 +231,24 @@ export const actions = {
 }
 
 export const getters = {
-  getProductById: (state: { products: any[] }) => (id: any) => {
-    return state.products.find((product: { id: any }) => product && product.id === id)
+  getProductById: (state: any) => (id: any) => {
+    return state.products.find(
+      (product: { id: any }) => product && product.id === id
+    )
+  },
+
+  getProductsInCart: (state: any) => {
+    const productsInCart = state.products.filter(function(product: {
+      added: any
+      count: number
+    }) {
+      return product.added && product.count > 0
+    })
+
+    const total = productsInCart.reduce(
+      (sum: any, current: { count: any }) => sum + current.count,
+      0
+    )
+    return { products: productsInCart, total: total }
   }
 }
