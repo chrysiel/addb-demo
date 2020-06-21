@@ -17,7 +17,7 @@ $ json-server --watch db.json
 # serve with hot reload at localhost
 $ npm run dev
 
-# Units and end to end tests with jest and ava
+# Units tests with jest
 $ npm run test
 
 # build for production and launch server
