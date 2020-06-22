@@ -7,18 +7,14 @@
   "scripts": {
     "build": "nuxt build",
     "test:unit": "vue-cli-service test:unit",
+    "lint": "eslint --ext .ts,.js,.vue .",
     "dev": "nuxt",
     "generate": "nuxt generate",
     "heroku-postbuild": "npm run build",
+    "i18n:report": "vue-cli-service i18n:report --src './src/**/*.?(js|vue)' --locales './src/.//**/*.json'",
+    "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore .",
     "start": "nuxt start",
-    "test": "jest",
-    "lint": "eslint --ext .ts,.js,.vue .",
-    "lintfix": "eslint --fix --ext .js,.vue --ignore-path .gitignore ."
-  },
-  "ava": {
-    "files": [
-      "tests/e2e/*"
-    ]
+    "test": "jest"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
@@ -31,11 +27,13 @@
     "nuxt": "^2.0.0",
     "sass-loader": "^8.0.2",
     "velocity-animate": "^1.5.2",
+    "vue-i18n": "^8.17.3",
     "vue-notifications": "^1.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
+    "@intlify/vue-i18n-loader": "^1.0.0",
     "@nuxt/typescript-build": "^1.0.3",
     "@nuxtjs/eslint-config": "^2.0.0",
     "@nuxtjs/eslint-config-typescript": "^2.0.0",
@@ -61,6 +59,12 @@
     "jsdom-global": "^3.0.2",
     "prettier": "^1.19.1",
     "ts-jest": "^26.1.0",
+    "vue-cli-plugin-i18n": "~1.0.1",
     "vue-jest": "^3.0.5"
+  },
+  "ava": {
+    "files": [
+      "tests/e2e/*"
+    ]
   }
 }

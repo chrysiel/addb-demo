@@ -2,6 +2,8 @@ import { GetterTree, ActionTree, MutationTree } from 'vuex'
 import { $axios } from '~/utils/api'
 
 export const state = () => ({
+  locales: ['en', 'fr'],
+  locale: 'en',
   things: [],
   name: 'Me'
 })
@@ -13,7 +15,13 @@ export const getters: GetterTree<RootState, RootState> = {
 }
 
 export const mutations: MutationTree<RootState> = {
-  CHANGE_NAME: (state, newName: string) => (state.name = newName)
+  CHANGE_NAME: (state, newName: string) => (state.name = newName),
+
+  SET_LANG(state, locale: string) {
+    if (state.locales.includes(locale)) {
+      state.locale = locale
+    }
+  }
 }
 
 export const actions: ActionTree<RootState, RootState> = {

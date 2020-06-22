@@ -3,6 +3,7 @@
     <nuxt-link to="/" class="brand">
       My Shop
     </nuxt-link>
+
     <nav>
       <nuxt-link to="/cart">
         Cart <span class="cart-counter">({{ productsInCartTotalLength }})</span>
@@ -11,6 +12,59 @@
       <nuxt-link to="/product/search">
         Search products
       </nuxt-link>
+
+      <!-- <NuxtLink :to="$i18n.path('about')" class="Header__Link" exact>
+            {{ $t('links.about') }}
+          </NuxtLink>
+        <NuxtLink
+        v-if="$i18n.locale === 'en'"
+        :to="`/fr` + $route.fullPath"
+        class="Header__Link"
+        active-class="none"
+        exact
+      >
+        {{ $t('links.french') }}
+      </NuxtLink>
+      <NuxtLink
+        v-else
+        :to="$route.fullPath.replace(/^\/[^\/]+/, '')"
+        class="Header__Link"
+        active-class="none"
+        exact
+      >
+        {{ $t('links.english') }}
+      </NuxtLink> -->
+    </nav>
+
+    <nav v-if="$store.state.locale === 'fr'">
+      <a
+        class="nav-link dropdown-toggle"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <span class="flag-icon flag-icon-fr"></span> {{ $t('links.french') }}
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdown09">
+        <a class="dropdown-item" @click="setLang('en')">
+          <span class="flag-icon flag-icon-us"></span> {{ $t('links.english') }}
+        </a>
+      </div>
+    </nav>
+    <nav v-else>
+      <a
+        class="nav-link dropdown-toggle"
+        data-toggle="dropdown"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
+        <span class="flag-icon flag-icon-us"></span> {{ $t('links.english') }}
+      </a>
+      <div class="dropdown-menu" aria-labelledby="dropdown09">
+        <a class="dropdown-item" @click="setLang('fr')">
+          <span class="flag-icon flag-icon-fr"></span> {{ $t('links.french') }}
+        </a>
+      </div>
     </nav>
   </div>
 </template>
@@ -24,7 +78,15 @@ export default {
   computed: mapState({
     productsInCartTotalLength: (state) =>
       state.product.productsInCartTotalLength
-  })
+  }),
+
+  methods: {
+    async setLang(lang) {
+      this.$root.$i18n.locale = lang
+      // this.$store.state.locale = lang
+      await this.$store.commit('SET_LANG', lang)
+    }
+  }
 }
 </script>
 

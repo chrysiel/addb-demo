@@ -2,7 +2,8 @@ export default {
   mode: 'universal',
   router: {
     // base: '/app/',
-    linkActiveClass: 'active-link'
+    linkActiveClass: 'active-link',
+    middleware: 'i18n'
   },
   /*
    ** Headers of the page
@@ -34,6 +35,12 @@ export default {
         type: 'text/css',
         href:
           'https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css'
+      },
+      {
+        rel: 'stylesheet',
+        type: 'text/css',
+        href:
+          'https://cdnjs.cloudflare.com/ajax/libs/flag-icon-css/3.1.0/css/flag-icon.min.css'
       }
     ],
     script: [
@@ -64,8 +71,13 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    '~/plugins/axios-accessor.ts'
+    '~/plugins/axios-accessor.ts',
+    '~/plugins/i18n.js'
     /* '~/plugins/vue-notifications.ts' */
+    /* {
+      src: '~/plugins/ga.js',
+      mode: 'client'
+    } */
   ],
   /*
    ** Nuxt.js dev-modules
