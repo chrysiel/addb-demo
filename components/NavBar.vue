@@ -36,33 +36,43 @@
       </NuxtLink> -->
     </nav>
 
-    <nav v-if="$store.state.locale === 'fr'">
+    <nav>
       <a
         class="nav-link dropdown-toggle"
         data-toggle="dropdown"
         aria-haspopup="true"
         aria-expanded="false"
       >
-        <span class="flag-icon flag-icon-fr"></span> {{ $t('links.french') }}
+        <span
+          :class="{
+            'flag-icon': true,
+            'flag-icon-fr': $store.state.locale === 'fr',
+            'flag-icon-us': $store.state.locale === 'en'
+          }"
+        ></span>
+        {{
+          $store.state.locale === 'fr'
+            ? $t('links.french')
+            : $t('links.english')
+        }}
       </a>
       <div class="dropdown-menu" aria-labelledby="dropdown09">
-        <a class="dropdown-item" @click="setLang('en')">
-          <span class="flag-icon flag-icon-us"></span> {{ $t('links.english') }}
-        </a>
-      </div>
-    </nav>
-    <nav v-else>
-      <a
-        class="nav-link dropdown-toggle"
-        data-toggle="dropdown"
-        aria-haspopup="true"
-        aria-expanded="false"
-      >
-        <span class="flag-icon flag-icon-us"></span> {{ $t('links.english') }}
-      </a>
-      <div class="dropdown-menu" aria-labelledby="dropdown09">
-        <a class="dropdown-item" @click="setLang('fr')">
-          <span class="flag-icon flag-icon-fr"></span> {{ $t('links.french') }}
+        <a
+          class="dropdown-item"
+          @click="setLang($store.state.locale === 'fr' ? 'en' : 'fr')"
+        >
+          <span
+            :class="{
+              'flag-icon': true,
+              'flag-icon-fr': $store.state.locale === 'en',
+              'flag-icon-us': $store.state.locale === 'fr'
+            }"
+          ></span>
+          {{
+            $store.state.locale === 'fr'
+              ? $t('links.english')
+              : $t('links.french')
+          }}
         </a>
       </div>
     </nav>
