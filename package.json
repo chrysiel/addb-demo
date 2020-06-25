@@ -24,7 +24,7 @@
     "lodash": "^4.17.15",
     "mini-toastr": "^0.8.1",
     "node-sass": "^4.14.1",
-    "nuxt": "^2.0.0",
+    "nuxt": "latest",
     "sass-loader": "^8.0.2",
     "velocity-animate": "^1.5.2",
     "vue-i18n": "^8.17.3",
