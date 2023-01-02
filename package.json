@@ -19,13 +19,13 @@
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
     "@types/lodash": "^4.14.155",
-    "@vue/cli-service": "^4.4.4",
+    "@vue/cli-service": "^5.0.8",
     "babel-preset-env": "^1.7.0",
     "lodash": "^4.17.15",
     "mini-toastr": "^0.8.1",
     "nuxt": "latest",
     "sass": "^1.45.2",
-    "sass-loader": "^8.0.2",
+    "sass-loader": "^13.2.0",
     "velocity-animate": "^1.5.2",
     "vue-i18n": "^8.17.3",
     "vue-notifications": "^1.0.2"
@@ -34,19 +34,19 @@
     "@babel/core": "^7.10.2",
     "@babel/preset-env": "^7.10.2",
     "@intlify/vue-i18n-loader": "^1.0.0",
-    "@nuxt/typescript-build": "^1.0.3",
+    "@nuxt/typescript-build": "^2.1.0",
     "@nuxtjs/eslint-config": "^2.0.0",
     "@nuxtjs/eslint-config-typescript": "^2.0.0",
     "@nuxtjs/eslint-module": "^1.0.0",
     "@testing-library/jest-dom": "^5.10.1",
     "@types/chalk": "^2.2.0",
     "@types/jest": "^26.0.0",
-    "@vue/cli-plugin-unit-jest": "^4.4.4",
+    "@vue/cli-plugin-unit-jest": "^5.0.8",
     "@vue/test-utils": "^1.0.3",
     "ava": "^3.9.0",
     "babel-eslint": "^10.1.0",
     "babel-jest": "^26.0.1",
-    "babel-loader": "^8.1.0",
+    "babel-loader": "^8.3.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-loader": "^4.0.2",
@@ -60,7 +60,7 @@
     "prettier": "^1.19.1",
     "ts-jest": "^26.1.0",
     "vue-cli-plugin-i18n": "~1.0.1",
-    "vue-jest": "^3.0.5"
+    "vue-jest": "^4.0.1"
   },
   "ava": {
     "files": [
